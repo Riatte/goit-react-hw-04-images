@@ -1,40 +1,16 @@
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import { fetchArticlesWithQuery } from 'Services/Api';
+import { ImageGalleryItem } from 'components/ImageGallery/ImageGalleryItem/ImageGalleryItem';
+
 import { Loader } from 'components/Loader/Loader';
 import { Button } from 'components/Button/Button';
 import css from './ImageGallery.module.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
-export const ImageGallery = ({ page, searching, incrementPage }) => {
-  const [image, setImage] = useState([]);
-  const [status, setStatus] = useState('idel');
-  const [error, setError] = useState(null);
-
-  useEffect(
-    prevProps => {
-      if (searching === '') return;
-
-      async function getImg() {
-        try {
-          if (page === 1) {
-            setImage([]);
-          }
-          setStatus('pending');
-          const material = await fetchArticlesWithQuery(searching, page);
-          setImage(prevState => [...prevState, ...material]);
-          setStatus('resolved');
-        } catch (error) {
-          setError(error);
-          setStatus('rejected');
-        }
-      }
-
-      getImg();
-    },
-    [searching, page]
-  );
-
+export const ImageGallery = ({
+  status,
+  error,
+  image,
+  incrementPage,
+  loadMore,
+}) => {
   if (status === 'idel') {
     return null;
   }
@@ -73,7 +49,7 @@ export const ImageGallery = ({ page, searching, incrementPage }) => {
             />
           ))}
         </ul>
-        <Button incrementPage={incrementPage} />
+        {loadMore && <Button incrementPage={incrementPage} />}
       </>
     );
   }

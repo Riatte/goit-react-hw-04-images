@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { ImageGalleryItem } from 'components/ImageGallery/ImageGalleryItem/ImageGalleryItem';
 import { fetchArticlesWithQuery } from 'Services/Api';
 import { Loader } from 'components/Loader/Loader';
 import { Button } from 'components/Button/Button';
