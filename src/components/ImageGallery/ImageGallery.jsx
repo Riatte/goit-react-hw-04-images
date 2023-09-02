@@ -1,16 +1,10 @@
 import { ImageGalleryItem } from 'components/ImageGallery/ImageGalleryItem/ImageGalleryItem';
 
 import { Loader } from 'components/Loader/Loader';
-import { Button } from 'components/Button/Button';
+
 import css from './ImageGallery.module.css';
 
-export const ImageGallery = ({
-  status,
-  error,
-  image,
-  incrementPage,
-  loadMore,
-}) => {
+export const ImageGallery = ({ status, error, image }) => {
   if (status === 'idel') {
     return null;
   }
@@ -49,7 +43,6 @@ export const ImageGallery = ({
             />
           ))}
         </ul>
-        {loadMore && <Button incrementPage={incrementPage} />}
       </>
     );
   }

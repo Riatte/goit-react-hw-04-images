@@ -10,15 +10,17 @@ export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   };
 
   return (
-    <li className={css.ImageGalleryItem} onClick={toggleModal}>
-      <img
-        src={webformatURL}
-        alt={tags}
-        className={css.ImageGalleryItem_image}
-      />
+    <>
+      <li className={css.ImageGalleryItem} onClick={toggleModal}>
+        <img
+          src={webformatURL}
+          alt={tags}
+          className={css.ImageGalleryItem_image}
+        />
+      </li>
       {isModalShow && (
         <Modal onClose={toggleModal} src={largeImageURL} alt={tags} />
       )}
-    </li>
+    </>
   );
 };

@@ -3,6 +3,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import css from './App.module.css';
 import { useState, useEffect } from 'react';
 import { fetchArticlesWithQuery } from 'Services/Api';
+import { Button } from 'components/Button/Button';
 
 export const App = () => {
   const [query, setQuery] = useState('');
@@ -16,19 +17,12 @@ export const App = () => {
     if (query === '') return;
     async function getImg() {
       try {
-        if (page === 1) {
-          setImage([]);
-        }
         setStatus('pending');
 
         const material = await fetchArticlesWithQuery(query, page);
         setImage(prevState => [...prevState, ...material]);
         setStatus('resolved');
-        if (material.length === 12) {
-          setLoadMore(true);
-        } else {
-          setLoadMore(false);
-        }
+        setLoadMore(material.length === 12);
       } catch (error) {
         setError(error);
         setStatus('rejected');
@@ -53,13 +47,8 @@ export const App = () => {
     <section className={css.App}>
       <div>
         <Searchbar handleFormSubmit={handleFormSubmit} />
-        <ImageGallery
-          incrementPage={incrementPage}
-          status={status}
-          error={error}
-          image={image}
-          loadMore={isLoadMore}
-        />
+        <ImageGallery status={status} error={error} image={image} />
+        {isLoadMore && <Button incrementPage={incrementPage} />}
       </div>
     </section>
   );
